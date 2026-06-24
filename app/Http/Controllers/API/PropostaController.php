@@ -69,22 +69,47 @@ class PropostaController extends Controller
     {
         $propostas = Proposta::with('disciplinas')
             ->where('status', 'em_analise')
+            ->whereNull('avaliador_id')
             ->orderBy('created_at', 'desc')
             ->get();
         
             return response()->json($propostas, 200);
     }
 
-    public function show($id)
+    public function show(Request $request, int $id)
     {
-        $proposta = Proposta::with('disciplinas')->find($id);
+        $avaliadorId = $request->query('avaliador_id');
 
-        if (!$proposta) {
+        DB::beginTransaction();
+
+        try {
+            $proposta = Proposta::with('disciplinas')->lockForUpdate()->find($id);
+
+            if (!$proposta) {
+                return response()->json(['message' => 'Proposta não encontrada.'], 404);
+            }
+
+            if ($proposta->avaliador_id !== null && $proposta->avaliador_id != $avaliadorId) {
+                return response()->json(['message' => 'Essa proposta já está sendo avaliada por outro profissional.'], 423);
+            }
+
+            if ($proposta->avaliador_id === null && $avaliadorId) {
+                $proposta->update([
+                    'avaliador_id' => $avaliadorId
+                ]);
+            }
+
+            DB::commit();
+            return response()->json($proposta, 200);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
             return response()->json([
-                'message' => 'Proposta não encontrada.'
-            ], 404);
+                'message' => 'Erro ao abrir proposta',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        return response()->json($proposta, 200);
+        
     }
 }
