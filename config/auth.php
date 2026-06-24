@@ -42,6 +42,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'avaliador' => [
+            'driver' => 'sanctum',
+            'provider' => 'avaliadores',
+        ],
+        'unidade' => [
+            'driver' => 'sanctum',
+            'provider' => 'unidades_academicas',
+        ],
     ],
 
     /*
@@ -64,13 +72,17 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', User::class),
+            'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'avaliadores' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Avaliador::class,
+        ],
+        'unidades_academicas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\UnidadeAcademica::class,
+        ],
     ],
 
     /*

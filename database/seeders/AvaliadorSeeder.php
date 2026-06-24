@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Avaliador;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class AvaliadorSeeder extends Seeder
 {
@@ -16,13 +17,13 @@ class AvaliadorSeeder extends Seeder
         Avaliador::create([
             'nome' => 'Victor Sales',
             'email' => 'victor.sales@ufpa.br',
-            'senha' => 'senha123'
+            'password' => Hash::make('senha123'),
         ]);
 
         Avaliador::create([
             'nome' => 'Euripedes Santos',
             'email' => 'euripedes.santos@ufpa.br',
-            'senha' => 'senha123'
+            'password' => Hash::make('senha123'),
         ]);
         
     }

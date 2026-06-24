@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\UnidadeAcademica;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class UnidadeAcademicaSeeder extends Seeder
 {
@@ -15,12 +16,12 @@ class UnidadeAcademicaSeeder extends Seeder
     {
         UnidadeAcademica::create([
             'nome' => 'Faculdade de Computação e Telecomunicações',
-            'senha' => 'FCT2026'
+            'password' => Hash::make('FCT2026')
         ]);
 
         UnidadeAcademica::create([
             'nome' => 'Faculdade de Computação',
-            'senha' => 'FACOMP2026'
+            'password' => Hash::make('FACOMP2026')
         ]);
     }
 }

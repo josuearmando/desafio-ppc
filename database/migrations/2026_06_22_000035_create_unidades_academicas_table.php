@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('unidades_academicas', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('senha');
+            $table->string('nome')->unique();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
