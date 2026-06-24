@@ -12,6 +12,9 @@ Route::get('/propostas/{id}', [PropostaController::class, 'show'])->whereNumber(
 
 Route::post('/avaliacoes', [AvaliacaoController::class, 'store']);
 
+Route::get('/camara/pauta', [PropostaController::class, 'pautaCamara']);
+Route::post('/camara/propostas/{id}/decisao', [PropostaController::class, 'decisaoCamara'])->whereNumber('id');
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
