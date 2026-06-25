@@ -119,7 +119,7 @@ curl -X POST http://127.0.0.1:8000/api/avaliacoes      -H "Content-Type: applica
 ```
 
 ### 5. Julgamento Final de Pauta (Câmara de Graduação)
-Registra a decisão final tomada pela banca julgadora da Câmara de Graduação sobre a proposta de curso.
+Registra a decisão final tomada pela banca julgadora da Câmara de Ensino sobre a proposta de curso.
 ```bash
 curl -X POST http://127.0.0.1:8000/api/camara/propostas/1/decisao      -H "Content-Type: application/json"      -H "Accept: application/json"      -d '{
        "status": "aprovado"
