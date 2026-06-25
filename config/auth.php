@@ -42,13 +42,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'avaliador' => [
-            'driver' => 'sanctum',
-            'provider' => 'avaliadores',
-        ],
         'unidade' => [
-            'driver' => 'sanctum',
-            'provider' => 'unidades_academicas',
+            'driver' => 'session',
+            'provider' => 'unidades',
+        ],
+        'avaliador' => [
+            'driver' => 'session',
+            'provider' => 'avaliadores',
         ],
     ],
 
@@ -70,19 +70,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-
-        'avaliadores' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Avaliador::class,
-        ],
-        'unidades_academicas' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\UnidadeAcademica::class,
-        ],
+        'users' => ['driver' => 'eloquent', 'model' => App\Models\User::class],
+        'unidades' => ['driver' => 'eloquent', 'model' => App\Models\UnidadeAcademica::class],
+        'avaliadores' => ['driver' => 'eloquent', 'model' => App\Models\Avaliador::class],
     ],
 
     /*

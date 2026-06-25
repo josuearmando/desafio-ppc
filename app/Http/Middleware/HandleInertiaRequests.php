@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -35,13 +36,23 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = null;
+        $guard = null;
+        
+        if (Auth::guard('unidade')->check()) {
+            $user = Auth::guard('unidade')->user();
+            $guard = 'unidade';
+        } elseif (Auth::guard('avaliador')->check()) {
+            $user = Auth::guard('avaliador')->user();
+            $guard = 'avaliador';
+        }
+
         return [
             ...parent::share($request),
-            'name' => config('app.name'),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user,
+                'guard' => $guard,
             ],
-            'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }
 }
